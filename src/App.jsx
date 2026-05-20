@@ -11,6 +11,8 @@ import BootScreen from './components/BootScreen'
 import CyberCity3D from './components/CyberCity3D'
 import Blog from './components/Blog'
 import BlogPost from './components/BlogPost'
+import ScrollToTop from './components/ScrollToTop'
+import PageTransition from './components/PageTransition'
 
 function HomePage({ audioEnabled, playClick, playSystemStart }) {
   return (
@@ -114,11 +116,14 @@ function App() {
           onToggleAudio={toggleAudio}
           playClick={playClick}
         />
-        <Routes>
-          <Route path="/" element={<HomePage audioEnabled={audioEnabled} playClick={playClick} playSystemStart={playSystemStart} />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:id" element={<BlogPost />} />
-        </Routes>
+        <ScrollToTop />
+        <PageTransition>
+          <Routes>
+            <Route path="/" element={<HomePage audioEnabled={audioEnabled} playClick={playClick} playSystemStart={playSystemStart} />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+          </Routes>
+        </PageTransition>
       </div>
     </HashRouter>
   )
