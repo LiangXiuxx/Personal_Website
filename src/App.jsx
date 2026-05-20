@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Music from './components/Music'
@@ -13,6 +13,48 @@ import Blog from './components/Blog'
 import BlogPost from './components/BlogPost'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/PageTransition'
+
+// 全局 reveal 观察器：自动为 .reveal 元素添加 .active
+function RevealObserver() {
+  const location = useLocation()
+
+  const activateRevealElements = useCallback(() => {
+    const els = document.querySelectorAll('.reveal:not(.active)')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+    els.forEach((el) => observer.observe(el))
+    return observer
+  }, [])
+
+  // 路由变化时立即激活视口内的元素
+  useEffect(() => {
+    // 短暂延迟确保 DOM 已渲染
+    const timer = setTimeout(() => {
+      // 直接激活所有 .reveal 元素（路由切换不需要滚动动画）
+      document.querySelectorAll('.reveal:not(.active)').forEach((el) => {
+        el.classList.add('active')
+      })
+    }, 50)
+    return () => clearTimeout(timer)
+  }, [location.pathname])
+
+  // 初始挂载时设置 observer（用于首页滚动触发）
+  useEffect(() => {
+    const observer = activateRevealElements()
+    return () => observer.disconnect()
+  }, [activateRevealElements])
+
+  return null
+}
 
 function HomePage({ audioEnabled, playClick, playSystemStart }) {
   return (
@@ -117,6 +159,7 @@ function App() {
           playClick={playClick}
         />
         <ScrollToTop />
+        <RevealObserver />
         <PageTransition>
           <Routes>
             <Route path="/" element={<HomePage audioEnabled={audioEnabled} playClick={playClick} playSystemStart={playSystemStart} />} />
