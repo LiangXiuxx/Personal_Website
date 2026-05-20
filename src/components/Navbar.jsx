@@ -1,6 +1,9 @@
 import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 const Navbar = ({ audioEnabled, onToggleAudio, playClick }) => {
+  const location = useLocation()
+
   const handleAudioToggle = () => {
     onToggleAudio()
     if (playClick) {
@@ -10,14 +13,30 @@ const Navbar = ({ audioEnabled, onToggleAudio, playClick }) => {
 
   return (
     <nav>
-      <div className="logo font-cyber">KAI<span>.</span>DEV</div>
+      <Link to="/" className="logo font-cyber" style={{ textDecoration: 'none', color: 'inherit' }}>
+        KAI<span>.</span>DEV
+      </Link>
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div className="nav-links font-cyber">
+          <Link
+            to="/"
+            className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+          >
+            HOME
+          </Link>
+          <Link
+            to="/blog"
+            className={`nav-link ${location.pathname.startsWith('/blog') ? 'active' : ''}`}
+          >
+            BLOG
+          </Link>
+        </div>
         <div className="status-indicator font-cyber">
           <div className="blink-dot"></div>
           System Active
         </div>
-        <div 
-          className="audio-toggle font-cyber" 
+        <div
+          className="audio-toggle font-cyber"
           id="audio-btn"
           onClick={handleAudioToggle}
         >
