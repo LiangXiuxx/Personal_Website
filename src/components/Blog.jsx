@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import posts, { categories } from "../data/posts";
 
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState("all");
+
+  // 切换分类后，激活新渲染的 .reveal 元素
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      document.querySelectorAll('.blog-card.reveal:not(.active)').forEach((el) => {
+        el.classList.add('active');
+      });
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [activeCategory]);
 
   const filteredPosts = activeCategory === "all"
     ? posts
