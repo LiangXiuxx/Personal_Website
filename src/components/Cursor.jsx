@@ -1,6 +1,19 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const Cursor = () => {
+  const [isTouch, setIsTouch] = useState(false)
+
+  useEffect(() => {
+    // 触屏设备跳过自定义光标
+    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    const isNarrow = window.innerWidth <= 768
+    if (hasTouch || isNarrow) {
+      setIsTouch(true)
+      return
+    }
+  }, [])
+
+  if (isTouch) return null
   const cursorDotRef = useRef(null)
   const cursorRingRef = useRef(null)
   let mouseX = 0, mouseY = 0

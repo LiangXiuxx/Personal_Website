@@ -14,6 +14,14 @@ import BlogPost from './components/BlogPost'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/PageTransition'
 
+// 路由感知的背景：首页渲染 3D 城市，Blog 页面跳过
+function RouteBackground() {
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+  if (!isHome) return null
+  return <CyberCity3D />
+}
+
 // 全局 reveal 观察器：自动为 .reveal 元素添加 .active
 function RevealObserver() {
   const location = useLocation()
@@ -150,7 +158,7 @@ function App() {
     <HashRouter>
       <div className="App">
         <div className="noise-overlay"></div>
-        <CyberCity3D />
+        <RouteBackground />
         <BootScreen onBootComplete={() => console.log('Boot complete')} playSystemStart={playSystemStart} />
         <Cursor />
         <Navbar
