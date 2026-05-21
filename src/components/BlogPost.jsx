@@ -1,6 +1,11 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import posts, { categories } from "../data/posts";
+import posts from "virtual:posts";
+
+const categories = {
+  "ai-llm": { name: "AI/LLM 开发实践", color: "var(--neon-cyan)" },
+  "project": { name: "项目实战记录", color: "var(--neon-pink)" },
+};
 
 const BlogPost = () => {
   const { id } = useParams();
@@ -24,109 +29,6 @@ const BlogPost = () => {
 
   const cat = categories[post.category];
 
-  const renderContent = (content) => {
-    const lines = content.split("\n");
-    const elements = [];
-    let inCodeBlock = false;
-    let codeLines = [];
-    let listItems = [];
-    let listType = null;
-
-    const flushList = () => {
-      if (listItems.length > 0) {
-        const Tag = listType === "ol" ? "ol" : "ul";
-        elements.push(
-          <Tag key={`list-${elements.length}`} className="blog-list">
-            {listItems.map((item, i) => (
-              <li key={i} dangerouslySetInnerHTML={{ __html: inlineFormat(item) }} />
-            ))}
-          </Tag>
-        );
-        listItems = [];
-        listType = null;
-      }
-    };
-
-    const inlineFormat = (text) => {
-      return text
-        .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
-        .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-    };
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-
-      if (line.trim().startsWith("```")) {
-        if (inCodeBlock) {
-          elements.push(
-            <pre key={`code-${elements.length}`} className="blog-code-block">
-              <code>{codeLines.join("\n")}</code>
-            </pre>
-          );
-          codeLines = [];
-          inCodeBlock = false;
-        } else {
-          flushList();
-          inCodeBlock = true;
-        }
-        continue;
-      }
-
-      if (inCodeBlock) {
-        codeLines.push(line);
-        continue;
-      }
-
-      if (line.startsWith("### ")) {
-        flushList();
-        elements.push(
-          <h4 key={`h4-${i}`} className="blog-h3 font-cyber">{line.slice(4)}</h4>
-        );
-        continue;
-      }
-      if (line.startsWith("## ")) {
-        flushList();
-        elements.push(
-          <h3 key={`h3-${i}`} className="blog-h2 font-cyber">{line.slice(3)}</h3>
-        );
-        continue;
-      }
-
-      if (line.startsWith("> ")) {
-        flushList();
-        elements.push(
-          <blockquote key={`quote-${i}`} className="blog-quote">{line.slice(2)}</blockquote>
-        );
-        continue;
-      }
-
-      if (line.trim().startsWith("- ")) {
-        if (listType !== "ul") flushList();
-        listType = "ul";
-        listItems.push(line.trim().slice(2));
-        continue;
-      }
-
-      const olMatch = line.trim().match(/^\d+\.\s(.+)/);
-      if (olMatch) {
-        if (listType !== "ol") flushList();
-        listType = "ol";
-        listItems.push(olMatch[1]);
-        continue;
-      }
-
-      flushList();
-      if (line.trim() === "") continue;
-
-      elements.push(
-        <p key={`p-${i}`} className="blog-paragraph" dangerouslySetInnerHTML={{ __html: inlineFormat(line) }} />
-      );
-    }
-
-    flushList();
-    return elements;
-  };
-
   return (
     <section className="section-padding blog-section">
       <div className="blog-post-container">
@@ -146,9 +48,7 @@ const BlogPost = () => {
           </div>
         </div>
 
-        <div className="blog-post-body">
-          {renderContent(post.content)}
-        </div>
+        <div className="blog-post-body" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
 
         <div className="blog-post-footer">
           <Link to="/blog" className="btn-glitch font-cyber" style={{ display: "inline-block" }}>

@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import posts, { categories } from "../data/posts";
+import posts from "virtual:posts";
+
+const categories = {
+  "ai-llm": { name: "AI/LLM 开发实践", color: "var(--neon-cyan)" },
+  "project": { name: "项目实战记录", color: "var(--neon-pink)" },
+};
 
 const Blog = () => {
   const [activeCategory, setActiveCategory] = useState("all");
