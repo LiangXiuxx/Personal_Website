@@ -65,7 +65,11 @@ const CyberCity3D = () => {
 
   // 移动端：轻量 CSS 霓虹渐变背景
   if (isMobile) {
-    return <div className="scene-container scene-mobile-neon" />
+    return (
+      <div className="scene-container" style={{
+        background: 'radial-gradient(ellipse at 20% 80%, rgba(0,243,255,0.15), transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(255,0,127,0.12), transparent 50%), #06060f'
+      }} />
+    )
   }
 
   // 桌面端：原有 3D 城市

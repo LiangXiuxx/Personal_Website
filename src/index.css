@@ -594,32 +594,34 @@ nav {
 /* 移动端轻量霓虹背景（替代 3D 城市） */
 .scene-mobile-neon {
   background:
-    radial-gradient(ellipse at 20% 80%, rgba(0, 243, 255, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(255, 0, 127, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(157, 0, 255, 0.04) 0%, transparent 60%),
-    linear-gradient(180deg, #020203 0%, #0a0a14 50%, #020203 100%);
+    radial-gradient(ellipse at 20% 80%, rgba(0, 243, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(255, 0, 127, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(157, 0, 255, 0.08) 0%, transparent 40%),
+    #06060f;
   animation: neonPulse 8s ease-in-out infinite alternate;
 }
 .scene-mobile-neon::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-pink), transparent);
-  opacity: 0.4;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 10%, var(--neon-cyan), var(--neon-pink), transparent 90%);
+  box-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+  opacity: 0.6;
 }
 .scene-mobile-neon::after {
   content: '';
   position: absolute;
-  bottom: 30%; left: 0; right: 0;
+  bottom: 25%; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--neon-purple), var(--neon-cyan), transparent);
-  opacity: 0.2;
+  background: linear-gradient(90deg, transparent 10%, var(--neon-purple), var(--neon-cyan), transparent 90%);
+  box-shadow: 0 0 10px var(--neon-purple);
+  opacity: 0.3;
 }
 
 @keyframes neonPulse {
   0% { opacity: 1; }
-  50% { opacity: 0.85; }
+  50% { opacity: 0.9; }
   100% { opacity: 1; }
 }
 
@@ -757,23 +759,17 @@ nav {
   .vertical-text { display: none; }
   .project { grid-template-columns: 1fr; }
   .project:nth-child(even) { direction: ltr; }
-  * { cursor: auto; } /* 移动端恢复默认鼠标 */
+  * { cursor: auto; }
   .cursor-dot, .cursor-ring { display: none; }
   .status-indicator, .audio-toggle { font-size: 0.6rem; }
   #cyber-form { padding: 20px; }
   .sign { font-size: 1.5rem; padding: 10px; }
   .scene-container { perspective: 600px; }
 
-  /* 移动端性能优化：关闭重效果 */
-  .noise-overlay { display: none; }
-  .layer-far { filter: none; }
-  .backdrop-filter, [style*="backdrop-filter"] { backdrop-filter: none; }
-  .card { backdrop-filter: none; }
-  .card:hover { transform: none; }
-  .reveal { opacity: 1; transform: none; transition: none; }
-  .reveal.active { transform: none; }
-  .boot-line { animation: none; }
-  .blink-dot { animation: none; }
+  /* 移动端性能优化 */
+  .noise-overlay { display: none !important; }
+  .card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
 /* ================= 博客导航链接 ================= */
 .nav-links {
