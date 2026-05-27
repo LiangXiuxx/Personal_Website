@@ -13,6 +13,8 @@ import Blog from './components/Blog'
 import BlogPost from './components/BlogPost'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/PageTransition'
+import ParticleBackground from './components/ParticleBackground'
+import Skills from './components/Skills'
 
 // 路由感知的背景：首页渲染 3D 城市，Blog 页面跳过
 function RouteBackground() {
@@ -71,6 +73,7 @@ function HomePage({ audioEnabled, playClick, playSystemStart }) {
       <Music />
       <Manga />
       <Books />
+      <Skills />
       <Contact playClick={playClick} playSystemStart={playSystemStart} />
     </>
   )
@@ -157,6 +160,7 @@ function App() {
   return (
     <HashRouter>
       <div className="App">
+        <ParticleBackground />
         <div className="noise-overlay"></div>
         <RouteBackground />
         <BootScreen onBootComplete={() => console.log('Boot complete')} playSystemStart={playSystemStart} />

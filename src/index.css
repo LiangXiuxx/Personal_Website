@@ -1101,3 +1101,311 @@ nav {
   animation: blink 0.5s infinite;
   text-shadow: 0 0 5px var(--neon-cyan);
 }
+
+/* ================= 音乐播放器样式 ================= */
+.music-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.music-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.music-bpm {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.music-player {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.play-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid var(--player-color, var(--neon-cyan));
+  color: var(--player-color, var(--neon-cyan));
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  margin-bottom: 15px;
+}
+
+.play-btn:hover {
+  background: var(--player-color, var(--neon-cyan));
+  color: #000;
+  box-shadow: 0 0 20px var(--player-color, var(--neon-cyan));
+}
+
+.play-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.progress-container {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  transition: width 0.1s linear;
+  border-radius: 2px;
+}
+
+.progress-time {
+  position: absolute;
+  right: 0;
+  top: -20px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.waveform {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 30px;
+  margin-top: 10px;
+}
+
+.wave-bar {
+  width: 3px;
+  height: 100%;
+  background: var(--color, var(--neon-cyan));
+  opacity: 0.3;
+  animation: wave 1s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  animation-play-state: paused;
+}
+
+.wave-bar:nth-child(odd) {
+  height: 70%;
+}
+
+.wave-bar:nth-child(3n) {
+  height: 50%;
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: scaleY(0.3);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 0.8;
+  }
+}
+
+/* 播放时的波形效果 */
+.music-card:has(.play-btn:hover) .wave-bar {
+  animation-play-state: running;
+}
+
+/* ================= 技能树样式 ================= */
+.skills-categories {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.skills-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.skill-item {
+  background: rgba(13, 13, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+
+.skill-item:hover {
+  border-color: rgba(157, 0, 255, 0.3);
+  transform: translateX(5px);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.skill-name {
+  font-size: 1rem;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.skill-level {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.skill-description {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.skill-bar-container {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.skill-bar {
+  height: 100%;
+  border-radius: 3px;
+  position: relative;
+}
+
+.skill-bar-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 3px;
+  filter: blur(4px);
+  opacity: 0.5;
+}
+
+/* 技能雷达图 */
+.skills-radar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.radar-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.radar-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.radar-level {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--level);
+  height: var(--level);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radar-label {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+
+.radar-shape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.radar-point {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px var(--color);
+  animation: radarPulse 2s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes radarPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+.radar-legend {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.legend-text {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* 响应式 */
+@media (max-width: 968px) {
+  .skills-container {
+    grid-template-columns: 1fr;
+  }
+
+  .radar-container {
+    width: 250px;
+    height: 250px;
+  }
+}
