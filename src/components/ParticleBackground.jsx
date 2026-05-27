@@ -300,8 +300,7 @@ const ParticleBackground = () => {
 
     // 动画循环
     const animate = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       time++
 
@@ -357,7 +356,7 @@ const ParticleBackground = () => {
         left: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: 0,
+        zIndex: -10,
         pointerEvents: 'none'
       }}
     />
