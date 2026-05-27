@@ -702,20 +702,18 @@ nav {
 .neon-purple { --neon-color: #9d00ff; color: var(--neon-color); text-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-color); border-color: var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color);}
 .neon-gold { --neon-color: #ffbc00; color: var(--neon-color); text-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(255,190,11,0.3); border-color: var(--neon-color);}
 
-/* 升级版招牌：毛玻璃质感 */
+/* 升级版招牌 */
 .sign {
   position: absolute;
   top: 100px;
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: 900; font-size: 2.5rem;
   padding: 15px 25px;
-  backdrop-filter: blur(4px);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid currentColor;
   writing-mode: vertical-rl;
   letter-spacing: 10px;
   transform: translateZ(50px);
-  border-radius: 4px;
   transition: all 0.3s ease;
 }
 .b-left .sign { right: -40px; }
