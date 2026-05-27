@@ -697,10 +697,10 @@ nav {
 .b-right .sign { left: -40px; }
 .horizontal { writing-mode: horizontal-tb; letter-spacing: 5px; }
 
-.neon-pink { --neon-color: #ff007f; color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-color), 0 0 20px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(255,0,127,0.3);}
-.neon-cyan { --neon-color: #00f3ff; color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-color), 0 0 20px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(0,243,255,0.3);}
-.neon-purple { --neon-color: #9d00ff; color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-color), 0 0 20px var(--neon-color); border-color: var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color);}
-.neon-gold { --neon-color: #ffbc00; color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-color), 0 0 20px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(255,190,11,0.3); border-color: var(--neon-color);}
+.neon-pink { --neon-color: #ff007f; color: var(--neon-color); text-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color), 0 0 40px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(255,0,127,0.3);}
+.neon-cyan { --neon-color: #00f3ff; color: var(--neon-color); text-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color), 0 0 40px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(0,243,255,0.3);}
+.neon-purple { --neon-color: #9d00ff; color: var(--neon-color); text-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color), 0 0 40px var(--neon-color); border-color: var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color);}
+.neon-gold { --neon-color: #ffbc00; color: var(--neon-color); text-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color), 0 0 40px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(255,190,11,0.3); border-color: var(--neon-color);}
 
 /* 升级版招牌：毛玻璃质感 */
 .sign {
