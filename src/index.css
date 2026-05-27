@@ -583,26 +583,12 @@ nav {
 
 /* ================= 3D 引擎与摄像机设置 ================= */
 .scene-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #04040a;
-  overflow: hidden;
-  perspective: 1000px;
+  position: fixed; top: 0; left: 0;
+  width: 100vw; height: 100vh;
   z-index: -5;
-}
-
-/* Canvas 粒子层 */
-.cyber-particles-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
+  overflow: hidden;
+  perspective: 800px; /* 焦距，决定 3D 的畸变程度 */
+  background: #020203;
 }
 
 /* 移动端轻量霓虹背景（替代 3D 城市） */
@@ -644,8 +630,8 @@ nav {
   position: absolute;
   transform-style: preserve-3d;
   will-change: transform;
-  transform: translateZ(0) rotateX(0deg);
-  z-index: 1;
+  /* 初始镜头稍微上抬，看向远方 */
+  transform: translateZ(0) rotateX(0deg); 
 }
 
 #world {
@@ -660,30 +646,14 @@ nav {
   bottom: -200px; left: 50%;
   width: 800px; height: 5000px;
   margin-left: -400px;
-  background: linear-gradient(90deg,
-    rgba(0, 243, 255, 0.5) 0%, rgba(0, 243, 255, 0.05) 5%,
-    transparent 10%, transparent 90%,
+  background: linear-gradient(90deg, 
+    rgba(0, 243, 255, 0.5) 0%, rgba(0, 243, 255, 0.05) 5%, 
+    transparent 10%, transparent 90%, 
     rgba(0, 243, 255, 0.05) 95%, rgba(0, 243, 255, 0.5) 100%), #050508;
   transform-origin: bottom center;
+  /* 核心：绕X轴旋转85度铺平，并推向Z轴深处 */
   transform: rotateX(85deg) translateZ(-200px);
   box-shadow: 0 0 50px rgba(0, 243, 255, 0.2) inset;
-}
-
-/* 能量网格路面 */
-.energy-grid {
-  position: absolute;
-  bottom: 0;
-  left: -50vw;
-  width: 200vw;
-  height: 1800px;
-  background-image:
-    linear-gradient(rgba(0, 243, 255, 0.25) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 243, 255, 0.25) 1px, transparent 1px);
-  background-size: 60px 60px;
-  transform: rotateX(85deg);
-  transform-origin: bottom center;
-  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
-  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
 }
 
 .road-lines {
@@ -745,62 +715,6 @@ nav {
   letter-spacing: 10px;
   transform: translateZ(50px);
   transition: all 0.3s ease;
-}
-
-/* 玻璃面板效果 */
-.glass-panel {
-  backdrop-filter: blur(8px) saturate(140%);
-  -webkit-backdrop-filter: blur(8px) saturate(140%);
-  background: rgba(8, 8, 16, 0.35) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 6px;
-  padding: 14px 28px;
-  box-shadow:
-    inset 0 0 15px rgba(0, 243, 255, 0.08),
-    0 10px 30px rgba(0, 0, 0, 0.6);
-}
-
-/* 故障文字效果 */
-.glitch-text {
-  position: relative;
-}
-.glitch-text::before,
-.glitch-text::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-}
-.glitch-text::before {
-  animation: glitch-1 3s infinite linear alternate-reverse;
-  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-}
-.glitch-text::after {
-  animation: glitch-2 3s infinite linear alternate-reverse;
-  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
-}
-
-@keyframes glitch-1 {
-  0%, 90% { transform: translate(0); }
-  91% { transform: translate(-2px, 1px); }
-  92% { transform: translate(2px, -1px); }
-  93% { transform: translate(0); }
-  94% { transform: translate(1px, 2px); }
-  95% { transform: translate(-1px, -2px); }
-  96%, 100% { transform: translate(0); }
-}
-
-@keyframes glitch-2 {
-  0%, 90% { transform: translate(0); }
-  91% { transform: translate(2px, -1px); }
-  92% { transform: translate(-2px, 1px); }
-  93% { transform: translate(0); }
-  94% { transform: translate(-1px, -2px); }
-  95% { transform: translate(1px, 2px); }
-  96%, 100% { transform: translate(0); }
 }
 .b-left .sign { right: -40px; }
 .b-right .sign { left: -40px; }
