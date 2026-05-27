@@ -697,10 +697,61 @@ nav {
 .b-right .sign { left: -40px; }
 .horizontal { writing-mode: horizontal-tb; letter-spacing: 5px; }
 
-.neon-pink { color: var(--neon-pink); text-shadow: 0 0 20px var(--neon-pink); box-shadow: 0 0 20px rgba(255,0,127,0.3) inset;}
-.neon-cyan { color: var(--neon-cyan); text-shadow: 0 0 20px var(--neon-cyan); box-shadow: 0 0 20px rgba(0,243,255,0.3) inset;}
-.neon-purple { color: var(--neon-purple); text-shadow: 0 0 20px var(--neon-purple); border-color: var(--neon-purple);}
-.neon-gold { color: var(--neon-gold); text-shadow: 0 0 20px var(--neon-gold); box-shadow: 0 0 20px rgba(255,190,11,0.3) inset; border-color: var(--neon-gold);}
+.neon-pink { --neon-color: #ff007f; color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-color), 0 0 20px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(255,0,127,0.3);}
+.neon-cyan { --neon-color: #00f3ff; color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-color), 0 0 20px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(0,243,255,0.3);}
+.neon-purple { --neon-color: #9d00ff; color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-color), 0 0 20px var(--neon-color); border-color: var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color);}
+.neon-gold { --neon-color: #ffbc00; color: #fff; text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-color), 0 0 20px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(255,190,11,0.3); border-color: var(--neon-color);}
+
+/* 升级版招牌：毛玻璃质感 */
+.sign {
+  position: absolute;
+  top: 100px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 900; font-size: 2.5rem;
+  padding: 15px 25px;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  writing-mode: vertical-rl;
+  letter-spacing: 10px;
+  transform: translateZ(50px);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+.b-left .sign { right: -40px; }
+.b-right .sign { left: -40px; }
+.horizontal { writing-mode: horizontal-tb; letter-spacing: 5px; }
+
+/* 霓虹呼吸灯动画 */
+.glow-animate {
+  animation: neonPulse 4s ease-in-out infinite alternate;
+}
+@keyframes neonPulse {
+  0%, 100% { opacity: 0.9; filter: drop-shadow(0 0 5px var(--neon-color)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 20px var(--neon-color)); }
+}
+
+/* 流光线条 */
+.light-stream {
+  position: absolute;
+  width: 4px;
+  height: 300px;
+  top: 0;
+  background: linear-gradient(to bottom, transparent, var(--stream-color), transparent);
+  opacity: 0.8;
+  animation: streamMove 3s linear infinite;
+}
+.stream-cyan-1 { left: 10%; --stream-color: #00f3ff; animation-duration: 2s; }
+.stream-pink-1 { right: 12%; --stream-color: #ff007f; animation-duration: 2.5s; animation-delay: 0.5s; }
+.stream-cyan-2 { left: 45%; --stream-color: #00f3ff; animation-duration: 1.8s; animation-delay: 1s; }
+.stream-purple-1 { right: 30%; --stream-color: #9d00ff; animation-duration: 3.2s; }
+
+@keyframes streamMove {
+  0% { transform: translateY(1000px) translateZ(-4000px); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(0px) translateZ(500px); opacity: 0; }
+}
 
 /* ================= 悬挂红绿灯 ================= */
 .traffic-pole {
@@ -743,14 +794,42 @@ nav {
   transform: translateZ(-4000px);
 }
 
-/* 前景雾气，压住背景亮度，保证文本绝对清晰 */
-.fog-overlay {
-  position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
-  background: linear-gradient(to bottom, 
-    rgba(3,3,5,0.7) 0%, 
-    rgba(3,3,5,0.3) 50%, 
-    var(--bg-dark) 100%);
+/* 远景光晕 */
+.distant-glow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 40%;
+  background: radial-gradient(ellipse, rgba(157, 0, 255, 0.08), transparent 70%);
+  filter: blur(30px);
+}
+
+/* 全屏极光微光 */
+.cyber-aurora {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(157, 0, 255, 0.05), transparent 70%);
   pointer-events: none;
+  z-index: 0;
+}
+
+/* 升级版雾气：上下分层霓虹混色 */
+.fog-overlay-top {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 40%;
+  background: linear-gradient(to bottom, #04040a 10%, rgba(255, 0, 127, 0.04), transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.fog-overlay-bottom {
+  position: fixed;
+  bottom: 0; left: 0; width: 100%; height: 50%;
+  background: linear-gradient(to top, #04040a 15%, rgba(0, 243, 255, 0.05), transparent);
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* 响应式 */
