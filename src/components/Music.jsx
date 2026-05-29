@@ -1,54 +1,52 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { startMusic, stopMusic } from '../utils/audioEngine'
 
 const Music = () => {
   const [playingId, setPlayingId] = useState(null)
   const [progress, setProgress] = useState(0)
   const animationRef = useRef(null)
+  const startTimeRef = useRef(null)
 
   const musicGenres = [
     {
       id: 'SYNTHWAVE',
       title: 'Midnight Skyline',
-      description: '雨夜编码时的绝对首选。合成器的低频震荡与鼓机节拍，营造出驾驶飞行车穿梭于霓虹大厦间的沉浸感。推荐听 The Midnight 与 Perturbator。',
+      description: '雨夜编码时的绝对首选。合成器的低频震荡与鼓机节拍，营造出驾驶飞行车穿梭于霓虹大厦间的沉浸感。琶音、Lead旋律、Pad和弦与16分音符踩镲交织。',
       color: 'var(--neon-cyan)',
-      duration: '3:45',
-      bpm: 120
+      duration: '4:32',
+      bpm: 118
     },
     {
       id: 'SHOEGAZE',
       title: 'Tokyo Distortion',
-      description: '凛冽时雨 (Ling Tosite Sigure) 与 羊文学。充满失真吉他音墙和空灵人声的日系摇滚，这是撕裂平静表象的都市呐喊。',
+      description: '凛冽时雨与羊文学。三层失真吉他音墙、双八度梦幻旋律、对位线条与长混响，这是撕裂平静表象的都市呐喊。',
       color: 'var(--neon-pink)',
-      duration: '4:12',
-      bpm: 140
+      duration: '5:08',
+      bpm: 138
     },
     {
       id: 'LO-FI',
       title: 'Neural Chillhop',
-      description: '午夜三点，当系统负载过高时需要冷却。混合了老旧黑胶底噪、爵士钢琴切片与慵懒的鼓点，适合沉思与阅读。',
+      description: '午夜三点，系统负载过高时需要冷却。爵士钢琴和弦、Walking Bass、Rhodes电钢琴装饰音、Swing鼓组与黑胶底噪，适合沉思与阅读。',
       color: 'var(--neon-purple)',
-      duration: '2:58',
-      bpm: 85
+      duration: '6:15',
+      bpm: 82
     }
   ]
 
-  // 模拟播放进度
+  // 播放进度动画
   useEffect(() => {
     if (playingId) {
-      const startTime = Date.now()
-      const duration = 30000 // 30秒模拟播放
+      startTimeRef.current = Date.now()
+      // 根据不同风格设置不同的循环周期
+      const durations = { 'SYNTHWAVE': 272, 'SHOEGAZE': 308, 'LO-FI': 375 }
+      const duration = (durations[playingId] || 60) * 1000
 
       const animate = () => {
-        const elapsed = Date.now() - startTime
-        const newProgress = Math.min((elapsed / duration) * 100, 100)
+        const elapsed = Date.now() - startTimeRef.current
+        const newProgress = (elapsed % duration) / duration * 100
         setProgress(newProgress)
-
-        if (newProgress < 100) {
-          animationRef.current = requestAnimationFrame(animate)
-        } else {
-          setPlayingId(null)
-          setProgress(0)
-        }
+        animationRef.current = requestAnimationFrame(animate)
       }
 
       animationRef.current = requestAnimationFrame(animate)
@@ -61,13 +59,16 @@ const Music = () => {
     }
   }, [playingId])
 
-  const togglePlay = (id) => {
+  const togglePlay = async (id) => {
     if (playingId === id) {
+      stopMusic()
       setPlayingId(null)
       setProgress(0)
     } else {
+      stopMusic()
       setPlayingId(id)
       setProgress(0)
+      await startMusic(id)
     }
   }
 

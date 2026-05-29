@@ -4,6 +4,7 @@ import posts from "virtual:posts";
 
 const categories = {
   "ai-llm": { name: "AI/LLM 开发实践", color: "var(--neon-cyan)" },
+  "aillm项目实践": { name: "AI/LLM 项目实践", color: "var(--neon-cyan)" },
   "project": { name: "项目实战记录", color: "var(--neon-pink)" },
 };
 

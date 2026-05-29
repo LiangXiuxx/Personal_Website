@@ -505,6 +505,124 @@ nav {
 }
 .b-6 { right: -2vw; width: 18vw; height: 60vh; background-color: #09090d; }
 
+/* ================= 建筑结构线 ================= */
+.building-lines {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.bl-vertical {
+  background-image:
+    repeating-linear-gradient(to right, transparent, transparent 40px, rgba(255, 255, 255, 0.03) 40px, rgba(255, 255, 255, 0.03) 42px);
+}
+
+.bl-horizontal {
+  background-image:
+    repeating-linear-gradient(to bottom, transparent, transparent 30px, rgba(255, 255, 255, 0.03) 30px, rgba(255, 255, 255, 0.03) 32px);
+}
+
+/* ================= 楼顶元素 ================= */
+.rooftop {
+  position: absolute;
+  top: -30px; left: 0; width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 0 15%;
+}
+
+.antenna {
+  width: 2px;
+  height: 25px;
+  background: linear-gradient(to top, #333, #555);
+  position: relative;
+}
+
+.antenna::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 4px;
+  background: #ff0000;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ff0000;
+  animation: blink 2s infinite;
+}
+
+.a-short { height: 15px; }
+.a-center { margin: 0 auto; }
+
+.ac-unit {
+  width: 20px; height: 12px;
+  background: #1a1a24;
+  border: 1px solid #333;
+  border-radius: 2px;
+  position: relative;
+}
+
+.ac-unit::before {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px; right: 3px; height: 2px;
+  background: #444;
+}
+
+.ac-right { margin-left: auto; }
+
+.satellite-dish {
+  width: 18px; height: 10px;
+  border: 2px solid #444;
+  border-radius: 50% 50% 0 0;
+  border-bottom: none;
+  transform: rotate(-30deg);
+  position: relative;
+}
+
+.satellite-dish::after {
+  content: '';
+  position: absolute;
+  bottom: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 2px; height: 8px;
+  background: #444;
+}
+
+.billboard-frame {
+  width: 50px; height: 20px;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  background: rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.billboard-frame::before {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px; right: 2px; bottom: 2px;
+  background: repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0, 243, 255, 0.1) 3px, rgba(0, 243, 255, 0.1) 4px);
+}
+
+.bf-wide { width: 70px; }
+
+.pipe {
+  width: 6px; height: 20px;
+  background: #2a2a3a;
+  border: 1px solid #444;
+  border-radius: 3px 3px 0 0;
+  position: relative;
+}
+
+.pipe::before {
+  content: '';
+  position: absolute;
+  top: -3px; left: -2px;
+  width: 10px; height: 3px;
+  background: #3a3a4a;
+  border-radius: 2px;
+}
+
 /* 日系霓虹灯牌 */
 .vertical-sign {
   writing-mode: vertical-rl;
@@ -666,7 +784,7 @@ nav {
 /* ================= 两侧 3D 大楼 ================= */
 .b3d {
   position: absolute;
-  bottom: 20%; 
+  bottom: 20%;
   width: 400px;
   height: var(--h);
   background: var(--bg);
@@ -678,6 +796,126 @@ nav {
 }
 .b-left { left: calc(50% - 700px); border-right: 2px solid var(--neon-pink); }
 .b-right { left: calc(50% + 300px); border-left: 2px solid var(--neon-cyan); }
+
+/* 3D 建筑结构线 */
+.b3d-structure {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image:
+    repeating-linear-gradient(to right, transparent, transparent 60px, rgba(255, 255, 255, 0.04) 60px, rgba(255, 255, 255, 0.04) 62px),
+    repeating-linear-gradient(to bottom, transparent, transparent 40px, rgba(255, 255, 255, 0.03) 40px, rgba(255, 255, 255, 0.03) 42px);
+  pointer-events: none;
+}
+
+/* 3D 楼顶元素 */
+.b3d-rooftop {
+  position: absolute;
+  top: -25px; left: 0; width: 100%;
+  height: 25px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 0 20%;
+  z-index: 10;
+}
+
+.b3d-antenna {
+  width: 3px;
+  height: 30px;
+  background: linear-gradient(to top, #333, #666);
+  position: relative;
+}
+
+.b3d-antenna::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 6px; height: 6px;
+  background: #ff0000;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ff0000, 0 0 15px rgba(255, 0, 0, 0.5);
+  animation: blink 2s infinite;
+}
+
+.b3d-antenna.a-short { height: 18px; }
+.b3d-antenna.a-center { margin: 0 auto; }
+
+.b3d-ac {
+  width: 28px; height: 16px;
+  background: #1a1a24;
+  border: 1px solid #444;
+  border-radius: 3px;
+  position: relative;
+}
+
+.b3d-ac::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; height: 3px;
+  background: #555;
+}
+
+.b3d-ac::after {
+  content: '';
+  position: absolute;
+  top: 8px; left: 4px; right: 4px; height: 2px;
+  background: #444;
+}
+
+.b3d-ac.ac-right { margin-left: auto; }
+
+.b3d-dish {
+  width: 24px; height: 14px;
+  border: 2px solid #555;
+  border-radius: 50% 50% 0 0;
+  border-bottom: none;
+  transform: rotate(-30deg);
+  position: relative;
+}
+
+.b3d-dish::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; left: 50%;
+  transform: translateX(-50%);
+  width: 3px; height: 10px;
+  background: #555;
+}
+
+.b3d-billboard {
+  width: 60px; height: 25px;
+  border: 1px solid rgba(0, 243, 255, 0.4);
+  background: rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.b3d-billboard::before {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px; right: 3px; bottom: 3px;
+  background: repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 243, 255, 0.15) 4px, rgba(0, 243, 255, 0.15) 5px);
+  animation: neonPulse 4s ease-in-out infinite alternate;
+}
+
+.b3d-billboard.bf-wide { width: 80px; }
+
+.b3d-pipe {
+  width: 8px; height: 25px;
+  background: #2a2a3a;
+  border: 1px solid #555;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+}
+
+.b3d-pipe::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: -3px;
+  width: 14px; height: 4px;
+  background: #3a3a4a;
+  border-radius: 3px;
+}
 
 /* 立体霓虹灯牌 */
 .sign {

@@ -110,43 +110,97 @@ const CyberCity3D = () => {
           {/* 2. 密集化建筑群：交错排布，新增玻璃质感变量与霓虹呼吸光晕 */}
           {/* 左侧建筑链 */}
           <div className="b3d b-left" style={{ '--z': '-400px', '--h': '650px', '--bg': '#090911', '--neon': '#ff007f' }}>
+            <div className="b3d-structure"></div>
+            <div className="b3d-rooftop">
+              <div className="b3d-antenna"></div>
+              <div className="b3d-ac"></div>
+            </div>
             <div className="sign neon-pink glow-animate">漫画</div>
           </div>
 
           <div className="b3d b-left" style={{ '--z': '-1100px', '--h': '500px', '--bg': '#06060c', '--neon': '#9d00ff' }}>
+            <div className="b3d-structure"></div>
+            <div className="b3d-rooftop">
+              <div className="b3d-dish"></div>
+              <div className="b3d-antenna a-short"></div>
+            </div>
             <div className="sign neon-purple">CREATIVE</div>
           </div>
 
           <div className="b3d b-left" style={{ '--z': '-1800px', '--h': '850px', '--bg': '#040408', '--neon': '#00f3ff' }}>
+            <div className="b3d-structure"></div>
+            <div className="b3d-rooftop">
+              <div className="b3d-antenna"></div>
+              <div className="b3d-ac"></div>
+              <div className="b3d-pipe"></div>
+            </div>
             <div className="sign neon-cyan" style={{ top: '220px' }}>AUDIO</div>
           </div>
 
           <div className="b3d b-left" style={{ '--z': '-2600px', '--h': '600px', '--bg': '#07070d', '--neon': '#ff007f' }}>
+            <div className="b3d-structure"></div>
+            <div className="b3d-rooftop">
+              <div className="b3d-billboard"></div>
+            </div>
             <div className="sign neon-pink horizontal">TECH</div>
           </div>
 
           <div className="b3d b-left" style={{ '--z': '-3400px', '--h': '750px', '--bg': '#0a0a14', '--neon': '#00f3ff' }}>
+            <div className="b3d-structure"></div>
+            <div className="b3d-rooftop">
+              <div className="b3d-antenna a-center"></div>
+              <div className="b3d-ac"></div>
+              <div className="b3d-ac ac-right"></div>
+            </div>
             <div className="sign neon-cyan">AKIHABARA</div>
           </div>
 
           {/* 右侧建筑链 */}
           <div className="b3d b-right" style={{ '--z': '-700px', '--h': '700px', '--bg': '#05050a', '--neon': '#00f3ff' }}>
+            <div className="b3d-structure"></div>
+            <div className="b3d-rooftop">
+              <div className="b3d-antenna"></div>
+              <div className="b3d-dish"></div>
+            </div>
             <div className="sign neon-cyan horizontal">音乐</div>
           </div>
 
           <div className="b3d b-right" style={{ '--z': '-1400px', '--h': '600px', '--bg': '#080810', '--neon': '#ffbc00' }}>
+            <div className="b3d-structure"></div>
+            <div className="b3d-rooftop">
+              <div className="b3d-pipe"></div>
+              <div className="b3d-antenna a-short"></div>
+            </div>
             <div className="sign neon-gold horizontal" style={{ top: '150px' }}>CODE</div>
           </div>
 
           <div className="b3d b-right" style={{ '--z': '-2200px', '--h': '950px', '--bg': '#030306', '--neon': '#ff007f' }}>
+            <div className="b3d-structure"></div>
+            <div className="b3d-rooftop">
+              <div className="b3d-antenna"></div>
+              <div className="b3d-ac"></div>
+              <div className="b3d-billboard bf-wide"></div>
+            </div>
             <div className="sign neon-pink">文学</div>
           </div>
 
           <div className="b3d b-right" style={{ '--z': '-3000px', '--h': '650px', '--bg': '#06060c', '--neon': '#9d00ff' }}>
+            <div className="b3d-structure"></div>
+            <div className="b3d-rooftop">
+              <div className="b3d-dish"></div>
+              <div className="b3d-pipe"></div>
+            </div>
             <div className="sign neon-purple" style={{ top: '320px' }}>DESIGN</div>
           </div>
 
           <div className="b3d b-right" style={{ '--z': '-3800px', '--h': '800px', '--bg': '#090912', '--neon': '#ffbc00' }}>
+            <div className="b3d-structure"></div>
+            <div className="b3d-rooftop">
+              <div className="b3d-antenna a-center"></div>
+              <div className="b3d-ac"></div>
+              <div className="b3d-ac ac-right"></div>
+              <div className="b3d-pipe"></div>
+            </div>
             <div className="sign neon-gold horizontal">ARCHIVE</div>
           </div>
 

@@ -36,20 +36,52 @@ const CyberCity = () => {
     <div className="cyber-city-bg">
       {/* 远景：模糊的摩天大楼 */}
       <div className="city-layer layer-far" id="parallax-far" ref={parallaxFarRef}>
-        <div className="building b-1"></div>
-        <div className="building b-2"></div>
-        <div className="building b-3"></div>
+        <div className="building b-1">
+          <div className="rooftop">
+            <div className="antenna"></div>
+            <div className="antenna a-short"></div>
+          </div>
+        </div>
+        <div className="building b-2">
+          <div className="rooftop">
+            <div className="ac-unit"></div>
+            <div className="antenna a-center"></div>
+          </div>
+        </div>
+        <div className="building b-3">
+          <div className="rooftop">
+            <div className="satellite-dish"></div>
+          </div>
+        </div>
       </div>
-      
+
       {/* 中景：清晰的建筑与霓虹灯牌 */}
       <div className="city-layer layer-mid" id="parallax-mid" ref={parallaxMidRef}>
         <div className="building b-4">
+          <div className="building-lines bl-vertical"></div>
+          <div className="rooftop">
+            <div className="antenna"></div>
+            <div className="ac-unit"></div>
+            <div className="ac-unit ac-right"></div>
+            <div className="billboard-frame"></div>
+          </div>
           <div className="vertical-sign pink">サイバー</div>
         </div>
         <div className="building b-5">
+          <div className="building-lines bl-horizontal"></div>
+          <div className="rooftop">
+            <div className="antenna a-center"></div>
+            <div className="billboard-frame bf-wide"></div>
+          </div>
           <div className="horizontal-sign cyan">KAI.DEV_SYS</div>
         </div>
         <div className="building b-6">
+          <div className="building-lines bl-vertical"></div>
+          <div className="rooftop">
+            <div className="satellite-dish"></div>
+            <div className="antenna a-short"></div>
+            <div className="pipe"></div>
+          </div>
           <div className="vertical-sign purple">電脳街</div>
         </div>
       </div>
