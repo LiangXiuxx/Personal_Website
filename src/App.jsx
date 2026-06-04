@@ -13,15 +13,77 @@ import Blog from './components/Blog'
 import BlogPost from './components/BlogPost'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/PageTransition'
-import ParticleBackground from './components/ParticleBackground'
+import { setIntroPhase } from './utils/introState'
 import Skills from './components/Skills'
 
-// 路由感知的背景：首页渲染 3D 城市，Blog 页面跳过
+function StaticCyberBackground() {
+  return (
+    <div
+      className="static-cyber-background"
+      style={{
+        '--blog-bg-dim': `url('${import.meta.env.BASE_URL}images/blog-intro-4.png')`,
+        '--blog-bg-bright': `url('${import.meta.env.BASE_URL}images/blog-intro-5.png')`,
+      }}
+      aria-hidden="true"
+    />
+  )
+}
+
 function RouteBackground() {
   const location = useLocation()
-  const isHome = location.pathname === '/'
-  if (!isHome) return null
-  return <CyberCity3D />
+  const isBlogPage = location.pathname.startsWith('/blog')
+
+  return isBlogPage ? <StaticCyberBackground /> : <CyberCity3D />
+}
+
+function BlogIntroSequence() {
+  const location = useLocation()
+  const isBlogPage = location.pathname.startsWith('/blog')
+  const [visible, setVisible] = useState(false)
+  const frames = [1, 2, 3, 4, 5].map((frame) => `${import.meta.env.BASE_URL}images/blog-intro-${frame}.png`)
+
+  useEffect(() => {
+    if (!isBlogPage) {
+      setVisible(false)
+      return
+    }
+    if (sessionStorage.getItem('blogIntroPlayed') === 'true') return
+
+    setVisible(false)
+    const showTimer = setTimeout(() => setVisible(true), 0)
+
+    frames.forEach((src) => {
+      const img = new Image()
+      img.src = src
+    })
+
+    const hideTimer = setTimeout(() => {
+      sessionStorage.setItem('blogIntroPlayed', 'true')
+      setVisible(false)
+    }, 4200)
+
+    return () => {
+      clearTimeout(showTimer)
+      clearTimeout(hideTimer)
+    }
+  }, [isBlogPage, location.pathname])
+
+  if (!visible) return null
+
+  return (
+    <div className="blog-intro-sequence" aria-hidden="true">
+      {frames.map((src, index) => (
+        <img
+          key={src}
+          src={src}
+          className={`blog-intro-frame blog-intro-frame-${index + 1}`}
+          alt=""
+        />
+      ))}
+      <div className="blog-intro-vignette" />
+      <div className="blog-intro-label font-cyber">NEURAL_LOG INITIALIZING</div>
+    </div>
+  )
 }
 
 // 全局 reveal 观察器：自动为 .reveal 元素添加 .active
@@ -82,6 +144,7 @@ function HomePage({ audioEnabled, playClick, playSystemStart }) {
 function App() {
   const [audioEnabled, setAudioEnabled] = useState(false)
   const audioCtxRef = useRef(null)
+  const introPlayedRef = useRef(false)
 
   const initAudio = () => {
     if (!audioCtxRef.current) {
@@ -143,6 +206,16 @@ function App() {
     osc.stop(audioCtxRef.current.currentTime + 0.5)
   }
 
+  // 如果已启动过但 intro 还没播完（HMR 重渲染），直接推进
+  useEffect(() => {
+    if (sessionStorage.getItem('booted') && !introPlayedRef.current) {
+      introPlayedRef.current = true
+      setIntroPhase('bg')
+      setTimeout(() => setIntroPhase('content'), 400)
+      setTimeout(() => setIntroPhase('nav'), 1600)
+    }
+  }, [])
+
   useEffect(() => {
     const interactables = document.querySelectorAll('a, .btn-glitch, .card, .project')
     interactables.forEach(el => {
@@ -160,10 +233,20 @@ function App() {
   return (
     <HashRouter>
       <div className="App">
-        <ParticleBackground />
         <div className="noise-overlay"></div>
         <RouteBackground />
-        <BootScreen onBootComplete={() => console.log('Boot complete')} playSystemStart={playSystemStart} />
+        <BlogIntroSequence />
+        <BootScreen
+          onBootComplete={() => {
+            if (introPlayedRef.current) return
+            introPlayedRef.current = true
+            // 分阶段进入：背景 → 内容 → 导航
+            setIntroPhase('bg')
+            setTimeout(() => setIntroPhase('content'), 400)
+            setTimeout(() => setIntroPhase('nav'), 1600)
+          }}
+          playSystemStart={playSystemStart}
+        />
         <Cursor />
         <Navbar
           audioEnabled={audioEnabled}
