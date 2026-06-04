@@ -190,7 +190,7 @@ function App() {
     osc.stop(audioCtxRef.current.currentTime + 0.1)
   }
 
-  const playSystemStart = () => {
+  const playSystemStart = useCallback(() => {
     if (!audioEnabled || !audioCtxRef.current) return
     const osc = audioCtxRef.current.createOscillator()
     const gain = audioCtxRef.current.createGain()
@@ -204,7 +204,7 @@ function App() {
     gain.connect(audioCtxRef.current.destination)
     osc.start()
     osc.stop(audioCtxRef.current.currentTime + 0.5)
-  }
+  }, [audioEnabled])
 
   // 如果已启动过但 intro 还没播完（HMR 重渲染），直接推进
   useEffect(() => {
@@ -214,6 +214,14 @@ function App() {
       setTimeout(() => setIntroPhase('content'), 400)
       setTimeout(() => setIntroPhase('nav'), 1600)
     }
+  }, [])
+
+  const handleBootComplete = useCallback(() => {
+    if (introPlayedRef.current) return
+    introPlayedRef.current = true
+    setIntroPhase('bg')
+    setTimeout(() => setIntroPhase('content'), 400)
+    setTimeout(() => setIntroPhase('nav'), 1600)
   }, [])
 
   useEffect(() => {
@@ -237,14 +245,7 @@ function App() {
         <RouteBackground />
         <BlogIntroSequence />
         <BootScreen
-          onBootComplete={() => {
-            if (introPlayedRef.current) return
-            introPlayedRef.current = true
-            // 分阶段进入：背景 → 内容 → 导航
-            setIntroPhase('bg')
-            setTimeout(() => setIntroPhase('content'), 400)
-            setTimeout(() => setIntroPhase('nav'), 1600)
-          }}
+          onBootComplete={handleBootComplete}
           playSystemStart={playSystemStart}
         />
         <Cursor />

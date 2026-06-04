@@ -57,7 +57,8 @@ const BootScreen = ({ onBootComplete, playSystemStart }) => {
 
     setTimeout(printLine, 500) // 初始延迟
 
-  }, [onBootComplete, playSystemStart])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (phase === 'gone') {
     return null
