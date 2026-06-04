@@ -81,7 +81,6 @@ function BlogIntroSequence() {
         />
       ))}
       <div className="blog-intro-vignette" />
-      <div className="blog-intro-label font-cyber">NEURAL_LOG INITIALIZING</div>
     </div>
   )
 }
