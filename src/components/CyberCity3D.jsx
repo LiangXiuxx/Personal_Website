@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
+const SHOW_3D_CITY = true
+
 const GlitchDataSky = () => {
   const canvasRef = useRef(null)
 
@@ -49,15 +51,20 @@ const GlitchDataSky = () => {
       width = window.innerWidth; height = window.innerHeight
       canvas.width = width; canvas.height = height
       canvas.style.width = `${width}px`; canvas.style.height = `${height}px`
-      const columnGap = 22
-      streams = Array.from({ length: Math.floor(width / columnGap) }, (_, i) => ({
-        x: i * columnGap, y: Math.random() * height * 0.8,
-        speed: 0.4 + Math.random() * 0.95,
-        fontSize: Math.random() > 0.72 ? 13 : 10,
-        alpha: 0.28 + Math.random() * 0.36,
-        phase: Math.random() * Math.PI * 2,
-        glyphs: Array.from(pickFragment().replace(/\s+/g, ' '))
-      }))
+      const columnGap = 28
+      const columns = Math.floor(width / columnGap)
+      streams = []
+      for (let i = 0; i < columns; i++) {
+        streams.push({
+          x: i * columnGap,
+          y: Math.random() * height * 0.8,
+          speed: 0.4 + Math.random() * 0.95,
+          fontSize: Math.random() > 0.72 ? 13 : 10,
+          alpha: 0.28 + Math.random() * 0.36,
+          phase: Math.random() * Math.PI * 2,
+          glyphs: Array.from(pickFragment().replace(/\s+/g, ' '))
+        })
+      }
     }
 
     const draw = (time = 0) => {
@@ -120,7 +127,7 @@ const CyberCity3D = () => {
 
   // 桌面端：3D 城市逻辑（优化了阻尼系数，让转动和滑动更丝滑）
   useEffect(() => {
-    if (isMobile) return
+    if (!SHOW_3D_CITY || isMobile) return
 
     const camera = cameraRef.current
     if (!camera) return
@@ -190,6 +197,17 @@ const CyberCity3D = () => {
     )
   }
 
+  if (!SHOW_3D_CITY) {
+    return (
+      <div className="scene-container city-hidden-background">
+        <GlitchDataSky />
+        <div className="cyber-aurora"></div>
+        <div className="fog-overlay-top"></div>
+        <div className="fog-overlay-bottom"></div>
+      </div>
+    )
+  }
+
   // 桌面端：炫烂升级版 3D 城市
   return (
     <div className="scene-container">
@@ -251,16 +269,6 @@ const CyberCity3D = () => {
             <div className="sign neon-pink horizontal">TECH</div>
           </div>
 
-          <div className="b3d b-left" style={{ '--z': '-3400px', '--h': '750px', '--bg': '#0a0a14', '--neon': '#00f3ff' }}>
-            <div className="b3d-structure"></div>
-            <div className="b3d-rooftop">
-              <div className="b3d-antenna a-center"></div>
-              <div className="b3d-ac"></div>
-              <div className="b3d-ac ac-right"></div>
-            </div>
-            <div className="sign neon-cyan">AKIHABARA</div>
-          </div>
-
           {/* 右侧建筑链 */}
           <div className="b3d b-right" style={{ '--z': '-700px', '--h': '700px', '--bg': '#05050a', '--neon': '#00f3ff' }}>
             <div className="b3d-structure"></div>
@@ -299,21 +307,6 @@ const CyberCity3D = () => {
             <div className="sign neon-purple" style={{ top: '320px' }}>DESIGN</div>
           </div>
 
-          <div className="b3d b-right" style={{ '--z': '-3800px', '--h': '800px', '--bg': '#090912', '--neon': '#ffbc00' }}>
-            <div className="b3d-structure"></div>
-            <div className="b3d-rooftop">
-              <div className="b3d-antenna a-center"></div>
-              <div className="b3d-ac"></div>
-              <div className="b3d-ac ac-right"></div>
-              <div className="b3d-pipe"></div>
-            </div>
-            <div className="sign neon-gold horizontal">ARCHIVE</div>
-          </div>
-
-          {/* 远景数字天际线（增加层次落差） */}
-          <div className="sky-end">
-            <div className="distant-glow"></div>
-          </div>
         </div>
       </div>
 

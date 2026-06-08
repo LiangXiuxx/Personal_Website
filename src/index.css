@@ -14,6 +14,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  cursor: none !important;
 }
 
 body {
@@ -27,6 +28,7 @@ body {
 .App {
   position: relative;
   min-height: 100vh;
+  cursor: none;
 }
 
 /* ================= 霓虹滑动条 (核心需求) ================= */
@@ -500,9 +502,9 @@ nav.intro-visible {
 
 .blog-section .blog-grid,
 .blog-post-container {
-  background: rgba(3, 3, 5, 0.4);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(3, 3, 5, 0.64);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 30px;
   border-radius: 4px;
   border: 1px solid rgba(0, 243, 255, 0.3);
@@ -861,9 +863,6 @@ nav.intro-visible {
   height: 100%;
   background: var(--color, var(--neon-cyan));
   opacity: 0.3;
-  animation: wave 1s ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
-  animation-play-state: paused;
 }
 
 .wave-bar:nth-child(odd) {
@@ -874,21 +873,6 @@ nav.intro-visible {
   height: 50%;
 }
 
-@keyframes wave {
-  0%, 100% {
-    transform: scaleY(0.3);
-    opacity: 0.3;
-  }
-  50% {
-    transform: scaleY(1);
-    opacity: 0.8;
-  }
-}
-
-/* 播放时的波形效果 */
-.music-card:has(.play-btn:hover) .wave-bar {
-  animation-play-state: running;
-}
 
 /* ================= 技能树样式 ================= */
 .skills-categories {
@@ -1211,7 +1195,6 @@ nav.intro-visible {
   transform-origin: bottom center;
   /* 核心：绕X轴旋转85度铺平，并推向Z轴深处 */
   transform: rotateX(85deg) translateZ(-200px);
-  box-shadow: 0 0 50px rgba(0, 243, 255, 0.2) inset;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.45) 4%, #000 14%, #000 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.45) 4%, #000 14%, #000 100%);
 }
@@ -1278,7 +1261,7 @@ nav.intro-visible {
   width: 6px; height: 6px;
   background: #ff0000;
   border-radius: 50%;
-  box-shadow: 0 0 8px #ff0000, 0 0 15px rgba(255, 0, 0, 0.5);
+  opacity: 0.8;
   animation: blink 2s infinite;
 }
 
@@ -1339,7 +1322,7 @@ nav.intro-visible {
   position: absolute;
   top: 3px; left: 3px; right: 3px; bottom: 3px;
   background: repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 243, 255, 0.15) 4px, rgba(0, 243, 255, 0.15) 5px);
-  animation: neonPulse 4s ease-in-out infinite alternate;
+  animation: neonPulse 8s ease-in-out infinite alternate;
 }
 
 .b3d-billboard.bf-wide { width: 80px; }
@@ -1379,14 +1362,14 @@ nav.intro-visible {
 .b-right .sign { left: -40px; }
 .horizontal { writing-mode: horizontal-tb; letter-spacing: 5px; }
 
-.neon-pink { --neon-color: #ff007f; color: var(--neon-color); text-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(255,0,127,0.3);}
-.neon-cyan { --neon-color: #00f3ff; color: var(--neon-color); text-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(0,243,255,0.3);}
-.neon-purple { --neon-color: #9d00ff; color: var(--neon-color); text-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-color); border-color: var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color);}
-.neon-gold { --neon-color: #ffbc00; color: var(--neon-color); text-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-color); box-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 0 15px var(--neon-color), 0 0 30px rgba(255,190,11,0.3); border-color: var(--neon-color);}
+.neon-pink { --neon-color: #ff007f; color: var(--neon-color); text-shadow: 0 0 5px var(--neon-color); box-shadow: 0 0 15px var(--neon-color), 0 0 30px rgba(255,0,127,0.3);}
+.neon-cyan { --neon-color: #00f3ff; color: var(--neon-color); text-shadow: 0 0 5px var(--neon-color); box-shadow: 0 0 15px var(--neon-color), 0 0 30px rgba(0,243,255,0.3);}
+.neon-purple { --neon-color: #9d00ff; color: var(--neon-color); text-shadow: 0 0 5px var(--neon-color); border-color: var(--neon-color); box-shadow: 0 0 15px var(--neon-color);}
+.neon-gold { --neon-color: #ffbc00; color: var(--neon-color); text-shadow: 0 0 5px var(--neon-color); box-shadow: 0 0 15px var(--neon-color), 0 0 30px rgba(255,190,11,0.3); border-color: var(--neon-color);}
 
 /* 霓虹呼吸灯动画 */
 .glow-animate {
-  animation: neonPulse 4s ease-in-out infinite alternate;
+  animation: neonPulse 8s ease-in-out infinite alternate;
 }
 @keyframes neonPulse {
   0%, 100% { opacity: 0.9; filter: drop-shadow(0 0 5px var(--neon-color)); }
@@ -1449,24 +1432,6 @@ nav.intro-visible {
 /* 将动画绑定到绿灯上，模拟故障效果 */
 .light.green { animation: traffic-cycle 8s infinite; }
 
-/* 视线尽头黑墙，防穿帮 */
-.sky-end {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: radial-gradient(circle at center, transparent 0%, rgba(2, 2, 3, 0.35) 72%, #020203 100%);
-  transform: translateZ(-7200px);
-}
-
-/* 远景光晕 */
-.distant-glow {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  height: 40%;
-  background: radial-gradient(ellipse, rgba(157, 0, 255, 0.08), transparent 70%);
-  filter: blur(30px);
-}
 
 /* 全屏极光微光 */
 .cyber-aurora {
@@ -1477,6 +1442,14 @@ nav.intro-visible {
   z-index: 0;
 }
 
+.city-hidden-background {
+  perspective: none;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(60, 255, 110, 0.08), transparent 48%),
+    linear-gradient(to bottom, rgba(0, 20, 8, 0.22), transparent 78%),
+    #020203;
+}
+
 .glitch-sky-wrapper {
   position: fixed;
   inset: 0;
@@ -1485,8 +1458,8 @@ nav.intro-visible {
   overflow: hidden;
   opacity: 0.58;
   background:
-    radial-gradient(circle at 50% 24%, rgba(60, 255, 110, 0.2), transparent 48%),
-    linear-gradient(to bottom, rgba(0, 28, 10, 0.42), transparent 78%);
+    radial-gradient(circle at 50% 24%, rgba(60, 255, 110, 0.08), transparent 48%),
+    linear-gradient(to bottom, rgba(0, 20, 8, 0.22), transparent 78%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 54%, rgba(0, 0, 0, 0.38) 74%, transparent 95%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 54%, rgba(0, 0, 0, 0.38) 74%, transparent 95%);
 }
@@ -1534,15 +1507,15 @@ nav.intro-visible {
   z-index: -10;
   pointer-events: none;
   overflow: hidden;
-  background: var(--blog-bg-dim) center / cover no-repeat #04040a;
+  background: var(--blog-bg-base) center / cover no-repeat #04040a;
 }
 
 .static-cyber-background::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--blog-bg-bright) center / cover no-repeat;
-  animation: blogBgLightCycle 5.6s ease-in-out infinite;
+  background: var(--blog-bg-overlay) center / cover no-repeat;
+  animation: blogBgCrossfade 7.2s ease-in-out infinite;
 }
 
 .blog-intro-sequence {
@@ -1613,9 +1586,9 @@ nav.intro-visible {
   }
 }
 
-@keyframes blogBgLightCycle {
-  0%, 100% { opacity: 0.16; }
-  42%, 58% { opacity: 0.82; }
+@keyframes blogBgCrossfade {
+  0%, 100% { opacity: 0; }
+  38%, 62% { opacity: 1; }
 }
 
 /* ================= 页面过渡动画 ================= */

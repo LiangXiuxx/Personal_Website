@@ -21,8 +21,8 @@ function StaticCyberBackground() {
     <div
       className="static-cyber-background"
       style={{
-        '--blog-bg-dim': `url('${import.meta.env.BASE_URL}images/blog-intro-4.png')`,
-        '--blog-bg-bright': `url('${import.meta.env.BASE_URL}images/blog-intro-5.png')`,
+        '--blog-bg-base': `url('${import.meta.env.BASE_URL}images/blog-intro-4.png')`,
+        '--blog-bg-overlay': `url('${import.meta.env.BASE_URL}images/blog-intro-5.png')`,
       }}
       aria-hidden="true"
     />

@@ -22,6 +22,8 @@ const Cursor = () => {
     let ringX = 0, ringY = 0
     let animationFrameId
 
+    const interactiveSelector = 'a, button, input, textarea, select, .btn-glitch, .card, .project, .audio-toggle, .category-btn, .play-btn'
+
     const setCursorActive = (active) => {
       if (cursorDot) {
         cursorDot.style.width = active ? '15px' : '8px'
@@ -51,13 +53,13 @@ const Cursor = () => {
     }
 
     const handleMouseOver = (e) => {
-      const target = e.target.closest?.('a, .card, .project')
+      const target = e.target.closest?.(interactiveSelector)
       if (!target || target.contains(e.relatedTarget)) return
       setCursorActive(true)
     }
 
     const handleMouseOut = (e) => {
-      const target = e.target.closest?.('a, .card, .project')
+      const target = e.target.closest?.(interactiveSelector)
       if (!target || target.contains(e.relatedTarget)) return
       setCursorActive(false)
     }
