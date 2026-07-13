@@ -3,16 +3,17 @@ import React from 'react'
 const Manga = () => {
   const mangas = [
     {
-      title: 'Ghost in the Shell (攻壳机动队)',
-      author: 'MASAMUNE SHIROW',
-      description: '"网络无限广阔。" 赛博朋克漫画的绝对圣经。探讨了在义体化和意识上传普及的未来，人类灵魂（Ghost）的定义边界究竟在何处。',
-      tags: ['CYBERPUNK', 'PHILOSOPHY', 'SCI-FI']
+      title: 'Attack on Titan (进击的巨人)',
+      author: 'HAJIME ISAYAMA',
+      description: '在高墙、巨人与自由意志之间展开的残酷叙事。它最吸引人的地方不是战斗本身，而是随着真相被一层层揭开，立场、历史与正义不断反转。',
+      tags: ['DARK FANTASY', 'WAR', 'FREEDOM']
     },
     {
-      title: 'BLAME! (特工次世代)',
-      author: 'TSUTOMU NIHEI',
-      description: '废土建筑学的极致美学。在一个失控扩建、深不见底的"超构造体"都市中，主角雾亥手持重力子放射线射出装置，寻找着带有网络终端遗传因子的幸存者。',
-      tags: ['POST-APOCALYPTIC', 'MEGAMACHINE']
+      title: 'Death Note (死亡笔记)',
+      author: 'TSUGUMI OHBA / TAKESHI OBATA',
+      description: '一场关于权力、审判与智力博弈的黑暗实验。夜神月与 L 的对抗把悬疑推理做成了高压心理战，也不断追问“正义”是否会被工具异化。',
+      tags: ['PSYCHOLOGICAL', 'THRILLER', 'JUSTICE'],
+      image: 'images/death-note.jpg'
     }
   ]
 
@@ -24,7 +25,8 @@ const Manga = () => {
       <div className="project-wrapper">
         {mangas.map((manga, index) => (
           <div key={index} className="project reveal">
-            <div className="project-img">
+            <div className={`project-img ${manga.image ? 'has-image' : ''}`}>
+              {manga.image && <img src={`${import.meta.env.BASE_URL}${manga.image}`} alt={manga.title} />}
               <div className="overlay"></div>
             </div>
             <div className="project-info">

@@ -1,8 +1,27 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { getIntroPhase, onIntroPhaseChange } from '../utils/introState'
 
 const Navbar = ({ audioEnabled, onToggleAudio, playClick }) => {
   const location = useLocation()
+  const [navVisible, setNavVisible] = useState(false)
+  const animatedRef = useRef(false)
+
+  useEffect(() => {
+    const current = getIntroPhase()
+    if (!animatedRef.current && current === 'nav') {
+      animatedRef.current = true
+      setNavVisible(true)
+      return
+    }
+    return onIntroPhaseChange((p) => {
+      if (animatedRef.current) return
+      if (p === 'nav') {
+        animatedRef.current = true
+        setNavVisible(true)
+      }
+    })
+  }, [])
 
   const handleAudioToggle = () => {
     onToggleAudio()
@@ -12,9 +31,9 @@ const Navbar = ({ audioEnabled, onToggleAudio, playClick }) => {
   }
 
   return (
-    <nav>
+    <nav className={navVisible ? 'intro-visible' : 'intro-hidden'}>
       <Link to="/" className="logo font-cyber" style={{ textDecoration: 'none', color: 'inherit' }}>
-        KAI<span>.</span>DEV
+        LiangXiu
       </Link>
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         <div className="nav-links font-cyber">

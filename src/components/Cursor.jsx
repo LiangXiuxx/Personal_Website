@@ -20,6 +20,21 @@ const Cursor = () => {
     const cursorRing = cursorRingRef.current
     let mouseX = 0, mouseY = 0
     let ringX = 0, ringY = 0
+    let animationFrameId
+
+    const interactiveSelector = 'a, button, input, textarea, select, .btn-glitch, .card, .project, .audio-toggle, .category-btn, .play-btn'
+
+    const setCursorActive = (active) => {
+      if (cursorDot) {
+        cursorDot.style.width = active ? '15px' : '8px'
+        cursorDot.style.height = active ? '15px' : '8px'
+      }
+      if (cursorRing) {
+        cursorRing.style.width = active ? '60px' : '40px'
+        cursorRing.style.height = active ? '60px' : '40px'
+        cursorRing.style.borderColor = active ? '#ff007f' : 'rgba(0, 243, 255, 0.5)'
+      }
+    }
 
     const handleMouseMove = (e) => {
       mouseX = e.clientX
@@ -28,6 +43,25 @@ const Cursor = () => {
         cursorDot.style.left = `${mouseX}px`
         cursorDot.style.top = `${mouseY}px`
       }
+
+      const card = e.target.closest?.('.card')
+      if (card) {
+        const rect = card.getBoundingClientRect()
+        card.style.setProperty('--x', `${e.clientX - rect.left}px`)
+        card.style.setProperty('--y', `${e.clientY - rect.top}px`)
+      }
+    }
+
+    const handleMouseOver = (e) => {
+      const target = e.target.closest?.(interactiveSelector)
+      if (!target || target.contains(e.relatedTarget)) return
+      setCursorActive(true)
+    }
+
+    const handleMouseOut = (e) => {
+      const target = e.target.closest?.(interactiveSelector)
+      if (!target || target.contains(e.relatedTarget)) return
+      setCursorActive(false)
     }
 
     const animateCursor = () => {
@@ -37,43 +71,8 @@ const Cursor = () => {
         cursorRing.style.left = `${ringX}px`
         cursorRing.style.top = `${ringY}px`
       }
-      requestAnimationFrame(animateCursor)
+      animationFrameId = requestAnimationFrame(animateCursor)
     }
-
-    const interactables = document.querySelectorAll('a, .card, .project')
-    interactables.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        if (cursorDot) {
-          cursorDot.style.width = '15px'
-          cursorDot.style.height = '15px'
-        }
-        if (cursorRing) {
-          cursorRing.style.width = '60px'
-          cursorRing.style.height = '60px'
-          cursorRing.style.borderColor = '#ff007f'
-        }
-      })
-      el.addEventListener('mouseleave', () => {
-        if (cursorDot) {
-          cursorDot.style.width = '8px'
-          cursorDot.style.height = '8px'
-        }
-        if (cursorRing) {
-          cursorRing.style.width = '40px'
-          cursorRing.style.height = '40px'
-          cursorRing.style.borderColor = 'rgba(0, 243, 255, 0.5)'
-        }
-      })
-    })
-
-    const cards = document.querySelectorAll('.card')
-    cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect()
-        card.style.setProperty('--x', `${e.clientX - rect.left}px`)
-        card.style.setProperty('--y', `${e.clientY - rect.top}px`)
-      })
-    })
 
     const reveals = document.querySelectorAll('.reveal')
     const observer = new IntersectionObserver((entries) => {
@@ -86,10 +85,15 @@ const Cursor = () => {
     reveals.forEach(reveal => observer.observe(reveal))
 
     document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('mouseover', handleMouseOver)
+    document.addEventListener('mouseout', handleMouseOut)
     animateCursor()
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseover', handleMouseOver)
+      document.removeEventListener('mouseout', handleMouseOut)
+      cancelAnimationFrame(animationFrameId)
       reveals.forEach(reveal => observer.unobserve(reveal))
     }
   }, [isTouch])
