@@ -22,7 +22,7 @@ const renderer = {
     return `<pre class="blog-code-block"><code>${text}</code></pre>`
   },
   codespan({ text }) {
-    const colors = ['cyan', 'pink', 'purple', 'gold']
+    const colors = ['cyan', 'pink', 'purple']
     let hash = 0
     for (let i = 0; i < text.length; i++) {
       hash = ((hash << 5) - hash) + text.charCodeAt(i)
@@ -102,6 +102,7 @@ export default function postsPlugin() {
         id: data.id || file.replace(/\.md$/, ''),
         title: data.title || 'Untitled',
         date: data.date || '',
+        updated: data.updated || '',
         category: data.category || 'uncategorized',
         tags: data.tags || [],
         summary: data.summary || '',

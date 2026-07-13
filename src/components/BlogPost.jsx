@@ -39,7 +39,7 @@ const BlogPost = () => {
 
         <div className="blog-post-header">
           <span className="card-id font-cyber" style={{ color: cat?.color || "var(--neon-cyan)" }}>
-            {post.category.toUpperCase()} // {post.date}
+            {post.category.toUpperCase()} // {post.date}{post.updated ? ` // UPDATED ${post.updated}` : ""}
           </span>
           <h1 className="blog-post-title font-cyber">{post.title}</h1>
           <div className="blog-tags">

@@ -41,6 +41,7 @@ const Blog = () => {
       <div className="blog-categories">
         <button
           className={`category-btn font-cyber ${activeCategory === "all" ? "active" : ""}`}
+          style={{ "--cat-color": "var(--neon-cyan)" }}
           onClick={() => setActiveCategory("all")}
         >
           ALL
@@ -49,11 +50,7 @@ const Blog = () => {
           <button
             key={key}
             className={`category-btn font-cyber ${activeCategory === key ? "active" : ""}`}
-            style={{
-              "--cat-color": cat.color,
-              borderColor: activeCategory === key ? cat.color : "var(--text-muted)",
-              color: activeCategory === key ? cat.color : "var(--text-muted)",
-            }}
+            style={{ "--cat-color": cat.color }}
             onClick={() => setActiveCategory(key)}
           >
             {cat.name}

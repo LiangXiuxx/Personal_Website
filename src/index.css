@@ -519,21 +519,26 @@ nav.intro-visible {
 }
 
 .category-btn {
-  background: transparent;
-  border: 1px solid var(--text-muted);
-  color: var(--text-muted);
+  background: rgba(3, 3, 5, 0.58);
+  border: 1px solid var(--cat-color, var(--neon-cyan));
+  color: var(--cat-color, var(--neon-cyan)) !important;
   padding: 8px 20px;
   font-size: 0.75rem;
   letter-spacing: 2px;
   cursor: pointer;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--cat-color, var(--neon-cyan)) 65%, transparent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--cat-color, var(--neon-cyan)) 24%, transparent);
   transition: all 0.3s;
 }
-.category-btn:hover,
+.category-btn:hover {
+  background: rgba(3, 3, 5, 0.78);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--cat-color, var(--neon-cyan)) 42%, transparent);
+}
 .category-btn.active {
-  border-color: var(--neon-cyan);
-  color: var(--neon-cyan);
-  box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
-  background: rgba(0, 243, 255, 0.05);
+  background: var(--cat-color, var(--neon-cyan));
+  color: #020203 !important;
+  text-shadow: none;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--cat-color, var(--neon-cyan)) 50%, transparent);
 }
 
 .blog-grid {
@@ -692,16 +697,16 @@ nav.intro-visible {
 }
 
 .inline-code-gold {
-  background: rgba(255, 190, 11, 0.1);
-  border: 1px solid rgba(255, 190, 11, 0.2);
-  color: var(--neon-gold);
+  background: rgba(0, 243, 255, 0.1);
+  border: 1px solid rgba(0, 243, 255, 0.2);
+  color: var(--neon-cyan);
 }
 
 .blog-quote {
-  border-left: 3px solid var(--neon-purple);
+  border-left: 3px solid var(--neon-pink);
   padding: 15px 20px;
   margin: 20px 0;
-  background: rgba(157, 0, 255, 0.05);
+  background: rgba(255, 0, 127, 0.05);
   color: var(--text-muted);
   font-style: italic;
 }
